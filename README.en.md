@@ -33,6 +33,37 @@ A set of BAT scripts for Windows 10 and Windows 11 that allows you to disable th
 
 1. Run `Restore_Win_S.bat`.
 2. Wait for the script to finish running.
-3. Test the `Win + S` keyboard shortcut.
+3. Check that the `Win + S` keyboard shortcut works.
 
-To restore the shortcut, you must first run the disabling script so that the original settings are
+To restore the shortcut, you must first run the disable script so that the original settings are preserved.
+
+## How It Works
+
+The scripts use PowerShell to modify the registry settings for the current Windows user:
+
+`HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced`
+
+Before disabling the keyboard shortcut, the script saves the original state of the `DisabledHotkeys` setting in registry backups.
+
+During restoration, the original value is restored. If the `DisabledHotkeys` setting did not exist before the change, it is deleted.
+
+After changing the settings, the script automatically restarts `explorer.exe` to apply the changes.
+
+## Important Notes
+
+- The scripts change settings only for the current Windows user.
+- Manual editing of the registry is not required.
+- Running the scripts as an administrator is usually not necessary.
+- When you restart File Explorer, the taskbar and File Explorer windows may briefly disappear and then reappear.
+- The backup is stored in the registry, not in a separate file.
+- Do not delete the backup registry values until the restoration is complete.
+- If no backup exists, the restoration script will not change any settings.
+
+## Compatibility
+
+- Windows 10
+- Windows 11
+
+## License
+
+No license has been specified. All rights reserved unless otherwise stated.
